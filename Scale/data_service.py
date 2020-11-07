@@ -20,7 +20,7 @@ def scaleCallback(newValue):
 		print('Value changed to ' + str(previousValue) + ' with diff ' + str(diff))
 		# set value to firebase!
 	elif (newValue - previousValue) <= 200.0 and (newValue - previousValue) > 50:
-		previousValue = newValuer
+		previousValue = newValue
 		print('New value set! ' + str(previousValue))
 	else:
 		print('Previous value is ' + str(previousValue) + ' new value is ' + str(newValue) + ' diff is too small, skipping')
