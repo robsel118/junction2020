@@ -6,13 +6,10 @@ firebase = firebase.FirebaseApplication('https://junction2020-1d1be.firebaseio.c
 
 previousValue = 0.0
 VAL_THRESHOLD = 0.4 # TODO : this should be changed based on the item used
-MIN_WEIGHT_THRESHOLD = 150.0
-
-
+MIN_WEIGHT_THRESHOLD = 150.0 # TODO : this should be changed based on the item used
 
 def scaleCallback(newValue):
 	global previousValue
-
 
 	# setting of the inital value
 	if previousValue == 0.0 and newValue > MIN_WEIGHT_THRESHOLD:
