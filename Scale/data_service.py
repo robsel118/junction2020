@@ -5,9 +5,15 @@ import os
 sys.path.insert(1, 'hx711/hx711py')
 import example
 
+# Add endpoint URL here for /addWeight
 ENDPOINT_URL = 'INSERT URL'
+
+'''
+Uncomment for firebase implementation, current one makes a HTTP POST request to the firebase functions
+
 firebase_db_url = 'INSERT URL'
 firebase = firebase.FirebaseApplication(firebase_db_url, None)
+'''
 
 previousValue = 0.0
 VAL_THRESHOLD = 0.4 # TODO : this should be changed based on the item used
@@ -24,13 +30,14 @@ Keeping the Firebase dependency here if we have time to do the aforementioned
 '''
 
 def uploadValue(newValue):
+	print('uploadValue: The type is '+ str(type(newValue)))
 	requests.post(ENDPOINT_URL, data = {'scale': 'scale_1', 'weight': newValue})
 
 
 
 def scaleCallback(newValue):
 	global previousValue
-
+	print('scaleCallback: The type is '+ str(type(newValue)))
 	# setting of the inital value
 	if previousValue == 0.0 and newValue > MIN_WEIGHT_THRESHOLD:
 		previousValue = newValue
@@ -50,8 +57,6 @@ def scaleCallback(newValue):
 		print('Previous value is ' + str(previousValue) + ' new value is ' + str(newValue) + ' diff is too small, skipping')
 
 def main():
-	result = firebase.get('/scales', None)
-	print(result)
 	example.poll(scaleCallback)
 
 if __name__ == "__main__":
