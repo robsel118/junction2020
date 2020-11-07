@@ -3,9 +3,9 @@ import 'package:junction2020/models/product.dart';
 import 'package:junction2020/views/product_screen.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({Key key, @required this.index}) : super(key: key);
+  const ProductCard({Key key, @required this.product}) : super(key: key);
 
-  final int index;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class ProductCard extends StatelessWidget {
                   "http://www.pngmart.com/files/12/Hand-Sanitizer-PNG-Transparent-Image.png",
                   fit: BoxFit.cover,
                 ),
-                tag: 'card-$index',
+                tag: 'card-$product.item',
               ),
             ),
           ],

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:junction2020/models/product.dart';
+import 'package:junction2020/components/cards/product-recommendation.dart';
+import 'package:junction2020/components/cards/product-status.dart';
+import 'package:junction2020/constants.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({Key key, @required this.product}) : super(key: key);
@@ -9,84 +12,113 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            actions: [
-              GestureDetector(
-                child: Icon(Icons.settings),
-                onTap: () {
-                  _onSettingsPressed(context);
-                },
+      backgroundColor: kBackgroundColor,
+      body: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                forceElevated: innerBoxIsScrolled,
+                actions: [
+                  GestureDetector(
+                    child: Icon(Icons.settings),
+                    onTap: () {
+                      _onSettingsPressed(context);
+                    },
+                  )
+                ],
+                pinned: true,
+                expandedHeight: 200,
+                flexibleSpace: FlexibleSpaceBar(
+                    background: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Hero(
+                    child: Image.network(
+                      "http://www.pngmart.com/files/12/Hand-Sanitizer-PNG-Transparent-Image.png",
+                      fit: BoxFit.contain,
+                    ),
+                    tag: 'card-Hand sanitizer',
+                  ),
+                )),
               )
-            ],
-            pinned: true,
-            expandedHeight: 300,
-            flexibleSpace: FlexibleSpaceBar(
-                background: Hero(
-              child: Image.network(
-                "http://www.pngmart.com/files/12/Hand-Sanitizer-PNG-Transparent-Image.png",
-                fit: BoxFit.cover,
-              ),
-              tag: 'card-0',
-            )),
-          ),
-          SliverList(
-              delegate: SliverChildListDelegate([
-            Container(
-              height: 80,
-              width: 200,
-              decoration: BoxDecoration(color: Colors.amber),
+            ];
+          },
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Hand Sanitizer', style: TextStyle(fontSize: 26)),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text('East Entrance', style: TextStyle(fontSize: 18)),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ProductStatus(
+                            title: "Quantity",
+                            subtitle: 'Remaining',
+                            value: '50%',
+                          ),
+                          ProductStatus(
+                            title: "Uses",
+                            subtitle: 'Remaining',
+                            value: '~100',
+                          ),
+                          ProductStatus(
+                            title: "Days",
+                            subtitle: 'Remaining',
+                            value: '~60',
+                          ),
+                          ProductStatus(
+                            title: "Price",
+                            subtitle: 'per ues',
+                            value: '.25€',
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Text('Details', style: TextStyle(fontSize: 26)),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                          'Doppio, single shot aromatic cortado eu, galão half and half to go frappuccino instant. Cup, cappuccino single origin coffee, cup doppio cultivar sit redeye. ',
+                          style: TextStyle(fontSize: 18)),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Text(
+                        'Sustainable alternatives',
+                        style: TextStyle(fontSize: 26),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 180,
+                  child: PageView.builder(
+                    itemCount: 4,
+                    controller:
+                        PageController(initialPage: 0, viewportFraction: 0.5),
+                    itemBuilder: (context, index) {
+                      return ProductRecommendation(
+                          url:
+                              "http://www.pngmart.com/files/12/Hand-Sanitizer-PNG-Transparent-Image.png");
+                    },
+                  ),
+                ),
+              ],
             ),
-            Container(
-              height: 80,
-              width: 200,
-              decoration: BoxDecoration(color: Colors.red),
-            ),
-            Container(
-              height: 80,
-              width: 200,
-              decoration: BoxDecoration(color: Colors.blue),
-            ),
-            
-            Container(
-              height: 80,
-              width: 200,
-              decoration: BoxDecoration(color: Colors.green),
-            ),
-            Container(
-              height: 80,
-              width: 200,
-              decoration: BoxDecoration(color: Colors.yellow),
-            ),
-            Container(
-              height: 80,
-              width: 200,
-              decoration: BoxDecoration(color: Colors.amber),
-            ),
-            Container(
-              height: 80,
-              width: 200,
-              decoration: BoxDecoration(color: Colors.red),
-            ),
-            Container(
-              height: 80,
-              width: 200,
-              decoration: BoxDecoration(color: Colors.blue),
-            ),
-            Container(
-              height: 80,
-              width: 200,
-              decoration: BoxDecoration(color: Colors.green),
-            ),
-            Container(
-              height: 80,
-              width: 200,
-              decoration: BoxDecoration(color: Colors.yellow),
-            ),
-          ]))
-        ],
-      ),
+          )),
     );
   }
 
