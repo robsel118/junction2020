@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:junction2020/views/home_screen.dart';
 
+import 'package:junction2020/locator.dart';
+
 void main() {
+  setupLocator();
+
   runApp(MyApp());
 }
 

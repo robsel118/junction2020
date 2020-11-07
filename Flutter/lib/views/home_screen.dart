@@ -5,6 +5,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:junction2020/constants.dart';
 import 'package:junction2020/models/product.dart';
 import 'package:junction2020/components/cards/product-card.dart';
+import 'package:junction2020/locator.dart';
+import 'package:junction2020/services/push-notification-sevices.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -15,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final databaseReference = FirebaseDatabase.instance.reference();
+  final PushNotificationService _pushNotificationService =
+      locator<PushNotificationService>();
 
   List<Product> productList = [];
   StreamSubscription<Event> _productsSubscription;
@@ -37,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    handleStartupLogic();
     getData();
   }
 
@@ -123,28 +128,9 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisSpacing: 10.0,
       crossAxisSpacing: 10.0,
     );
-    // return FutureBuilder(
-    //   future: databaseReference.child('scales').once(),
-    //   builder: (context, AsyncSnapshot snapshot) {
-    //     if (snapshot.hasData) {
-    //       return StaggeredGridView.countBuilder(
-    //         primary: false,
-    //         shrinkWrap: true,
-    //         crossAxisCount: 6,
-    //         itemCount: snapshot.data.value.length,
-    //         itemBuilder: (BuildContext context, int index) =>
-    //             ProductCard(index: index),
-    //         staggeredTileBuilder: (int index) {
-    //           return StaggeredTile.count(3, index.isEven ? 4 : 3);
-    //         },
-    //         mainAxisSpacing: 10.0,
-    //         crossAxisSpacing: 10.0,
-    //       );
-    //     }
-    //     return Center(
-    //       child: CircularProgressIndicator(),
-    //     );
-    //   },
-    // );
+  }
+
+  void handleStartupLogic() async {
+    await _pushNotificationService.initialise();
   }
 }

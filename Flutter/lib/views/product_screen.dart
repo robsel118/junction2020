@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:junction2020/models/product.dart';
 import 'package:junction2020/components/cards/product-recommendation.dart';
 import 'package:junction2020/components/cards/product-status.dart';
 import 'package:junction2020/constants.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 // ignore: must_be_immutable
 class ProductScreen extends StatefulWidget {
