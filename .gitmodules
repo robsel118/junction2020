@@ -1,3 +1,3 @@
 [submodule "Scale/hx711/hx711py"]
 	path = Scale/hx711/hx711py
-	url = https://github.com/tatobari/hx711py
+	url = https://github.com/harmittaa/hx711py
