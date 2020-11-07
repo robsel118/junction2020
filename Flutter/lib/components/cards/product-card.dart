@@ -18,7 +18,7 @@ class ProductCard extends StatelessWidget {
             Container(color: Colors.white),
             FractionallySizedBox(
               widthFactor: 1,
-              heightFactor: 0.6,
+              heightFactor: product.remainingPercent / 100,
               child: Container(
                 color: Colors.grey[400],
               ),
@@ -29,7 +29,7 @@ class ProductCard extends StatelessWidget {
                   "http://www.pngmart.com/files/12/Hand-Sanitizer-PNG-Transparent-Image.png",
                   fit: BoxFit.cover,
                 ),
-                tag: 'card-$product.item',
+                tag: 'card-${product.item}',
               ),
             ),
           ],
@@ -39,8 +39,8 @@ class ProductCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                ProductScreen(product: Product(item: "hand sanitzer")),
+            builder: (context) => ProductScreen(
+                key: ValueKey(product.remainingPercent), product: product),
           ),
         );
       },
