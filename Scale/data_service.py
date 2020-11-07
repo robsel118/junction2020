@@ -5,7 +5,7 @@ import example
 firebase = firebase.FirebaseApplication('https://junction2020-1d1be.firebaseio.com/', None)
 
 def myCallback(scaleVAl):
-	print(scaleVAl)
+	print('Received value: ' + str(scaleVAl))
 
 def main():
 	result = firebase.get('/scales', None)
