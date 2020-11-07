@@ -11,7 +11,7 @@ MIN_WEIGHT_THRESHOLD = 50.0
 
 def scaleCallback(newValue):
 	global previousValue
-	if previousValue == 0.0 && newValue > MIN_WEIGHT_THRESHOLD:
+	if previousValue == 0.0 and newValue > MIN_WEIGHT_THRESHOLD:
 		previousValue = newValue
 		print('Set new value ' + str(previousValue))
 	elif (previousValue - newValue) >= VAL_THRESHOLD:
@@ -19,6 +19,8 @@ def scaleCallback(newValue):
 		previousValue = newValue
 		print('Value changed to ' + str(previousValue) + ' with diff ' + str(diff))
 		# set value to firebase!
+	elif (newValue - previousValue) <= 200.0:
+		previousValue = newValue
 	else:
 		print('Previous value is ' + str(previousValue) + ' new value is ' + str(newValue) + ' diff is too small, skipping')
 
