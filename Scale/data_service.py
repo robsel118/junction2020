@@ -10,7 +10,7 @@ def myCallback(scaleVAl):
 def main():
 	result = firebase.get('/scales', None)
 	print(result)
-	example.poll()
+	example.poll(myCallback)
 
 if __name__ == "__main__":
     main()
