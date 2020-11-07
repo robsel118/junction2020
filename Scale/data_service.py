@@ -35,8 +35,4 @@ def main():
 	example.poll(scaleCallback)
 
 if __name__ == "__main__":
-    main()
-
-
-
-git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch Scale/data_service.py' --prune-empty --tag-name-filter cat -- --all
+	main()
