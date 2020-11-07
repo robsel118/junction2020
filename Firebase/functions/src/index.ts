@@ -21,22 +21,23 @@ exports.addMeasurement = functions.https.onRequest(async (req: { body:Record<str
         });
   });
 
-
+  // handle the scale ID properly. Eventually the scales would auth themselves via client app
   exports.onMeasurement = functions.database.ref('measurements/{scale}/inputs/{input}').onCreate((snapshot: any, context: any) => {
-    return getValueFromReference(admin.database().ref("measurements/scale_1/")).then((scale:any) => {
-        console.log("We got the value! ", scale);
+    return getValueFromReference(admin.database().ref("measurements/scale_1/")).then((scale: any) => {
         const itemWeight = snapshot.child('weight').val()
         const avgUse = scale["average_usage"]
         const timesUsed = scale['number_of_uses'] // should reset when new item is added from app
         const currentWeight = scale['current_weight']
+        const maxWeight = scale['max_weight']
         const currentUse = currentWeight - itemWeight // naive, doesn't take into account new item scenario
         const newAvg = (avgUse * timesUsed + currentUse) / (timesUsed + 1)
-
         return Promise.all([
             updateProperties(admin.database().ref("measurements/scale_1/"), 'average_usage', newAvg),
             updateProperties(admin.database().ref("measurements/scale_1/"), 'number_of_uses', timesUsed + 1),
             updateProperties(admin.database().ref("measurements/scale_1/"), 'current_weight', itemWeight),
             updateProperties(admin.database().ref("measurements/scale_1/"), 'remaining_usages', itemWeight / newAvg),
+            updateProperties(admin.database().ref("scales/scale_1/"), 'remaining_usages', itemWeight / newAvg),
+            updateProperties(admin.database().ref("scales/scale_1/"), 'remaining_percent', currentWeight / maxWeight),
         ])
     });
   });
