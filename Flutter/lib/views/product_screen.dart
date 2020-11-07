@@ -48,6 +48,7 @@ class ProductScreen extends StatelessWidget {
               width: 200,
               decoration: BoxDecoration(color: Colors.blue),
             ),
+            
             Container(
               height: 80,
               width: 200,

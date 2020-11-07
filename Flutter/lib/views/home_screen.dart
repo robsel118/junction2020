@@ -96,8 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
             staggeredTileBuilder: (int index) {
               return StaggeredTile.count(3, index.isEven ? 4 : 3);
             },
-            mainAxisSpacing: 4.0,
-            crossAxisSpacing: 4.0,
+            mainAxisSpacing: 10.0,
+            crossAxisSpacing: 10.0,
           );
         }
         return Center(
