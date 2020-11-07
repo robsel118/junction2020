@@ -1,3 +1,4 @@
 **Smart Shelf scale setup**
 
-TODO
+Run : `git submodule update --init`
+
