@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "989559521499",
+    "firebase_url": "https://junction2020-1d1be.firebaseio.com",
+    "project_id": "junction2020-1d1be",
+    "storage_bucket": "junction2020-1d1be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989559521499:android:0c6464ffdc582aa62e4cfe",
+        "android_client_info": {
+          "package_name": "com.example.junction2020"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "989559521499-ipj0b0kd2i3uq5le91qcb9p6jnjp8d34.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC4hdjX6QiXBZEGZG1TjhY78BmzMANMgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "989559521499-ipj0b0kd2i3uq5le91qcb9p6jnjp8d34.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
