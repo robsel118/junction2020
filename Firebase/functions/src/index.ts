@@ -2,6 +2,10 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 import { Response } from 'express'
 
+// For future work with Cloud functions. See proper usage of Promises here:
+// https://github.com/firebase/functions-samples/blob/master/fcm-notifications/functions/index.js
+// Note to self: dont even try with TypeScript as there doesnt appear to be working type definitions for Firebase -> problems with IDE and linter
+
 admin.initializeApp();
 
 // handle incoming reqs to /addMeasurement
@@ -13,7 +17,7 @@ exports.addMeasurement = functions.https.onRequest(async (req: { body:Record<str
         weight: itemWeight,
       }).then(() => {
         console.log('New measurement added');
-        res.json({ text: "ADded" });
+        res.json({ text: "Measurement added" });
       })
         .catch((error: any) => {
             // Re-throwing the error as an HttpsError so that the client gets the error details.
@@ -21,7 +25,8 @@ exports.addMeasurement = functions.https.onRequest(async (req: { body:Record<str
         });
   });
 
-  // handle the scale ID properly. Eventually the scales would auth themselves via client app
+  // TODO: handle the scale ID properly. Eventually the scales would auth themselves via client app
+  // This function listens to new measurements being created and recalculates aggregated data based on them
   exports.onMeasurement = functions.database.ref('measurements/{scale}/inputs/{input}').onCreate((snapshot: any, context: any) => {
     return getValueFromReference(admin.database().ref("measurements/scale_1/")).then((scale: any) => {
         const itemWeight = snapshot.child('weight').val()
@@ -42,7 +47,35 @@ exports.addMeasurement = functions.https.onRequest(async (req: { body:Record<str
     });
   });
 
+  // Listens to changes on scale node, if percentage is less than a given threshold, send the user a push notification
+  exports.onPecentageChanged = functions.database.ref('scales/{scale}').onWrite((change: any, context: any) => {
+    if (!change.after.exists()) {
+        return null;
+    }
 
+    if (change.after.child('remaining_percent').val() > 0.2) {
+        return null;
+    }
+
+    // TODO: user a real user id
+    return getValueFromReference(admin.database().ref("pns/user_1/")).then((user: any) => {
+        const itemName = change.after.child('current_item').val()
+        const remainingPercentage = change.after.child('remaining_percent').val()
+        const remainingUsages = change.after.child('remaining_usages').val()
+        const fcmKey = user["fcm_key"]
+        const payload = {
+            notification: {
+                title: "Item " + itemName + " is running out soon!",
+                body: itemName + " only has " + ((remainingPercentage * 100)|0) + "% left. It is about " + remainingUsages + " usages.",
+                sound: "default",
+            },
+        };
+        return admin.messaging().sendToDevice(fcmKey, payload);
+    });
+  });
+
+
+  /* Helper functions */
   function getValueFromReference(ref:any) {
     return new Promise((resolve) => {
       ref.once('value', (snapshot:any) => {
