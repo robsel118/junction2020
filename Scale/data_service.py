@@ -4,12 +4,13 @@ sys.path.insert(1, 'hx711/hx711py')
 import example
 firebase = firebase.FirebaseApplication('https://junction2020-1d1be.firebaseio.com/', None)
 
-previousValue = 0
+previousValue = 0.0
 VAL_THRESHOLD = 0.4 # TODO : this should be changed based on the item used
 
 
 def scaleCallback(newValue):
-	if previousValue == 0:
+	global previousValue
+	if previousValue == 0.0:
 		previousValue = newValue
 		print('Initialised previousValue with ' + str(newValue))
 	elif (previousValue - newValue) >= VAL_THRESHOLD:
