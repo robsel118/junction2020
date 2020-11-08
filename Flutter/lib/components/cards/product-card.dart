@@ -10,18 +10,29 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
+      child: Container(
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Container(color: Colors.white),
+            Container(
+              decoration: BoxDecoration(boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Colors.black26,
+                  offset: Offset(1.0, 4.0),
+                  blurRadius: 4.0,
+                ),
+              ], color: Colors.white, borderRadius: BorderRadius.circular(12)),
+            ),
             FractionallySizedBox(
               widthFactor: 1,
               heightFactor: product.remainingPercent / 100,
               child: Container(
-                color: Colors.grey[400],
-              ),
+                  decoration: BoxDecoration(
+                color: Colors.blueGrey[100],
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(12),
+                    bottomRight: Radius.circular(12)),
+              )),
             ),
             Center(
               child: Hero(
@@ -42,8 +53,9 @@ class ProductCard extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                     color: _getIndicatorColor(product.remainingPercent),
-                    borderRadius:
-                        BorderRadius.only(bottomLeft: Radius.circular(16))),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(16),
+                        topRight: Radius.circular(12))),
                 height: 30,
                 width: 100,
                 child: Padding(
