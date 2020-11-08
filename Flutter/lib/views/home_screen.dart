@@ -6,8 +6,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:junction2020/constants.dart';
 import 'package:junction2020/models/product.dart';
 import 'package:junction2020/components/cards/product-card.dart';
+
 import 'package:junction2020/locator.dart';
 import 'package:junction2020/services/push-notification-sevices.dart';
+
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -18,8 +20,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final databaseReference = FirebaseDatabase.instance.reference();
+
   final PushNotificationService _pushNotificationService =
       locator<PushNotificationService>();
+
 
   List<Product> productList = [];
   StreamSubscription<Event> _productsSubscription;
@@ -43,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     handleStartupLogic();
+
     getData();
   }
 
@@ -142,6 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               )
             : ProductCard(product: productList[index]);
+
       },
       staggeredTileBuilder: (int index) {
         return StaggeredTile.count(3, index.isEven ? 4 : 3);
@@ -153,5 +159,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void handleStartupLogic() async {
     await _pushNotificationService.initialise();
+
   }
 }

@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:junction2020/models/product.dart';
 import 'package:junction2020/components/cards/product-recommendation.dart';
 import 'package:junction2020/components/cards/product-status.dart';
 import 'package:junction2020/constants.dart';
+import 'package:firebase_database/firebase_database.dart';
+
 
 // ignore: must_be_immutable
 class ProductScreen extends StatefulWidget {
@@ -74,6 +75,7 @@ class _ProductScreenState extends State<ProductScreen> {
                 flexibleSpace: FlexibleSpaceBar(
                     background: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
+
                   child: Hero(
                     child: Image.network(
                       "http://www.pngmart.com/files/12/Hand-Sanitizer-PNG-Transparent-Image.png",
@@ -195,6 +197,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     leading: Icon(
                       Icons.compass_calibration,
                     ),
+
                     title: Text('Retare scale'),
                     onTap: () {
                       print('retaring');

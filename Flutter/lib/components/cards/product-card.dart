@@ -23,6 +23,7 @@ class ProductCard extends StatelessWidget {
                 ),
               ], color: Colors.white, borderRadius: BorderRadius.circular(12)),
             ),
+
             FractionallySizedBox(
               widthFactor: 1,
               heightFactor: product.remainingPercent / 100,
@@ -72,6 +73,7 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
             )
+
           ],
         ),
       ),
@@ -96,4 +98,5 @@ class ProductCard extends StatelessWidget {
       return Colors.greenAccent;
     }
   }
+
 }

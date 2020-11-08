@@ -25,6 +25,7 @@ class ProductStatus extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.2,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
