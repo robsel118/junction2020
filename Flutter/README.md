@@ -4,7 +4,8 @@ Flutter application for our Smart Shelf project. The application displays data f
 
 ## Getting Started (Tested only on Android)
 
-![ezgif-2-8132e0ace7bc](https://user-images.githubusercontent.com/26892877/98457880-b5dcfd00-2193-11eb-8550-b0e52b733cc3.gif)
+ <img src="https://user-images.githubusercontent.com/26892877/98457880-b5dcfd00-2193-11eb-8550-b0e52b733cc3.gif" width="200"/>
+
 
 Install flutter ([doc](https://flutter.dev/docs/get-started/install))
 
