@@ -11,7 +11,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(12),
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -25,13 +25,41 @@ class ProductCard extends StatelessWidget {
             ),
             Center(
               child: Hero(
-                child: Image.network(
-                  "http://www.pngmart.com/files/12/Hand-Sanitizer-PNG-Transparent-Image.png",
-                  fit: BoxFit.cover,
+                child: FractionallySizedBox(
+                  widthFactor: 0.66,
+                  heightFactor: 0.66,
+                  child: Image.network(
+                    product.image,
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
-                tag: 'card-${product.item}',
+                tag: 'card-${product.name}',
               ),
             ),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: _getIndicatorColor(product.remainingPercent),
+                    borderRadius:
+                        BorderRadius.only(bottomLeft: Radius.circular(16))),
+                height: 30,
+                width: 100,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 2, horizontal: 16),
+                  child: Center(
+                    child: Text(
+                      '${product.remainingPercent}% left',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -45,5 +73,15 @@ class ProductCard extends StatelessWidget {
         );
       },
     );
+  }
+
+  Color _getIndicatorColor(int percentRemaining) {
+    if (percentRemaining < 20) {
+      return Colors.redAccent;
+    } else if (percentRemaining < 50) {
+      return Colors.orangeAccent;
+    } else {
+      return Colors.greenAccent;
+    }
   }
 }

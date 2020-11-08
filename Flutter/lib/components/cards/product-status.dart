@@ -15,11 +15,16 @@ class ProductStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(40)),
+      decoration: BoxDecoration(boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: Colors.black38,
+          offset: Offset(1.0, 1.0),
+          blurRadius: 2.0,
+        )
+      ], color: Colors.white, borderRadius: BorderRadius.circular(40)),
       width: MediaQuery.of(context).size.width * 0.2,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
