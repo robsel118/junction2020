@@ -10,28 +10,70 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
+      child: Container(
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Container(color: Colors.white),
+            Container(
+              decoration: BoxDecoration(boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Colors.black26,
+                  offset: Offset(1.0, 4.0),
+                  blurRadius: 4.0,
+                ),
+              ], color: Colors.white, borderRadius: BorderRadius.circular(12)),
+            ),
+
             FractionallySizedBox(
               widthFactor: 1,
               heightFactor: product.remainingPercent / 100,
               child: Container(
-                color: Colors.grey[400],
-              ),
+                  decoration: BoxDecoration(
+                color: Colors.blueGrey[100],
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(12),
+                    bottomRight: Radius.circular(12)),
+              )),
             ),
             Center(
               child: Hero(
-                child: Image.network(
-                  "http://www.pngmart.com/files/12/Hand-Sanitizer-PNG-Transparent-Image.png",
-                  fit: BoxFit.cover,
+                child: FractionallySizedBox(
+                  widthFactor: 0.66,
+                  heightFactor: 0.66,
+                  child: Image.network(
+                    product.image,
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
-                tag: 'card-${product.item}',
+                tag: 'card-${product.name}',
               ),
             ),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: _getIndicatorColor(product.remainingPercent),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(16),
+                        topRight: Radius.circular(12))),
+                height: 30,
+                width: 100,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 2, horizontal: 16),
+                  child: Center(
+                    child: Text(
+                      '${product.remainingPercent}% left',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+              ),
+            )
+
           ],
         ),
       ),
@@ -46,4 +88,15 @@ class ProductCard extends StatelessWidget {
       },
     );
   }
+
+  Color _getIndicatorColor(int percentRemaining) {
+    if (percentRemaining < 20) {
+      return Colors.redAccent;
+    } else if (percentRemaining < 50) {
+      return Colors.orangeAccent;
+    } else {
+      return Colors.greenAccent;
+    }
+  }
+
 }
