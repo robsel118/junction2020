@@ -27,7 +27,7 @@ exports.addMeasurement = https.onRequest(
       .database()
       .ref("/measurements/" + scale + "/inputs")
       .push({
-        weight: itemWeight
+        weight: itemWeight,
       })
       .then(() => {
         console.log("New measurement added");
@@ -85,7 +85,7 @@ exports.onMeasurement = database
           admin.database().ref("scales/scale_1/"),
           "remaining_percent",
           currentWeight / maxWeight
-        )
+        ),
       ]);
     });
   });
@@ -120,8 +120,8 @@ exports.onPecentageChanged = database
             "% left. It is about " +
             remainingUsages +
             " usages.",
-          sound: "default"
-        }
+          sound: "default",
+        },
       };
       return admin.messaging().sendToDevice(fcmKey, payload);
     });
@@ -132,7 +132,7 @@ function getValueFromReference<T>(ref: admin.database.Reference): Promise<T> {
   return new Promise<T>(resolve => {
     ref.once("value", snapshot => {
       resolve(snapshot.val());
-    });
+    }).catch(() => 'obligatory catch');
   });
 }
 
@@ -142,6 +142,6 @@ function updateProperties(
   value: number
 ) {
   return ref.update({
-    [key]: value
+    [key]: value,
   });
 }
